@@ -1,4 +1,4 @@
-# 🧠 Prepogame (Adivina la Proposición)
+# 🧠 Propogame (Adivina la Proposición)
 
 Juego interactivo desarrollado en Python para practicar lógica proposicional y deducción de tablas de verdad. El proyecto cuenta con **dos modalidades de juego**: una versión directa por terminal y una versión visual interactiva construida con Tkinter.
 
@@ -38,8 +38,8 @@ prepogame/
 ### Instalación
 1. Clona el repositorio:
    ```bash
-   git clone [https://github.com/tu-usuario/prepogame.git](https://github.com/tu-usuario/prepogame.git)
-   cd prepogame
+   git clone [https://github.com/tu-usuario/propogame.git](https://github.com/tu-usuario/propogame.git)
+   cd propogame
    ```
 
 ---
