@@ -40,6 +40,7 @@ prepogame/
    ```bash
    git clone [https://github.com/tu-usuario/propogame.git](https://github.com/tu-usuario/propogame.git)
    cd propogame
+
    ```
 
 ---
