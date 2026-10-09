@@ -69,7 +69,7 @@ label_animation.place(x=20, y=100)
 def actualizar_ani(lista: list, current_index = 0, speed = 50):
     if current_index < len(lista):
         label_animation.config(image=lista[current_index])
-        next_index = (current_index + 1) #% len(lista)
+        next_index = (current_index + 1)
     else:
         label_animation.config(image="")
         return
