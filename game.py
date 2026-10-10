@@ -1,6 +1,7 @@
 from prepogame import Prepogame
 import tkinter as tk
 from PIL import Image, ImageTk
+from time import sleep
 
 TEAL = "#08D9D6"
 BLACK = "#252A34"
@@ -9,27 +10,40 @@ GREY = "#EAEAEA"
 
 ventana = tk.Tk()
 ventana.title("Prepogame")
-ventana.geometry("640x540")
+ventana.geometry("640x600")
 ventana.config(bg=TEAL)
 
 game = Prepogame()
-tabla = tk.Canvas(ventana, width=320, height=260, bg=BLACK, highlightthickness=0)
+############### Canvas con la tabla en assci ##################################
+tabla = tk.Canvas(ventana, width=320, height=350, bg=BLACK, highlightthickness=0)
 tabla.place(x=160, y=20)
 
-options_space = tk.Canvas(ventana, width=500, height=200, bg=RED)
-options_space.place(x=70, y=300)
-
 texto_tabla = tabla.create_text(160, 130, text="Iniciar", fill=GREY, anchor="center", font=("Arial", 20, "bold"))
+#******************************************************************************
 
-rect_one = options_space.create_rectangle(40, 20, 220, 80, fill=GREY, outline="black")
-rect_two = options_space.create_rectangle(280, 20, 460, 80, fill=GREY, outline="black")
-rect_three = options_space.create_rectangle(40, 100, 220, 160, fill=GREY, outline="black")
-rect_four = options_space.create_rectangle(280, 100, 460, 160, fill=GREY, outline="black")
+################ Canvas con las opciones de respuesta #######################
+options_space = tk.Canvas(ventana, width=500, height=180, bg=RED)
+options_space.place(x=70, y=400)
+
+rect_one = options_space.create_rectangle(30, 20, 230, 80, fill=GREY, outline="black")
+rect_two = options_space.create_rectangle(270, 20, 470, 80, fill=GREY, outline="black")
+rect_three = options_space.create_rectangle(30, 100, 230, 160, fill=GREY, outline="black")
+rect_four = options_space.create_rectangle(270, 100, 470, 160, fill=GREY, outline="black")
 
 text1 = options_space.create_text(130, 50, text="", font=("Arial", 12, "bold"), fill=BLACK)
 text2 = options_space.create_text(370, 50, text="", font=("Arial", 12, "bold"), fill=BLACK)
 text3 = options_space.create_text(130, 130, text="", font=("Arial", 12, "bold"), fill=BLACK)
 text4 = options_space.create_text(370, 130, text="", font=("Arial", 12, "bold"), fill=BLACK)
+
+options_space.addtag_withtag("boton1", rect_one)
+options_space.addtag_withtag("boton1", text1)
+options_space.addtag_withtag("boton2", rect_two)
+options_space.addtag_withtag("boton2", text2)
+options_space.addtag_withtag("boton3", rect_three)
+options_space.addtag_withtag("boton3", text3)
+options_space.addtag_withtag("boton4", rect_four)
+options_space.addtag_withtag("boton4", text4)
+#******************************************************************************
 
 ###################### GIFTS #######################################
 ################ Creacion de listas con fotogramas #################
@@ -66,27 +80,77 @@ label_animation = tk.Label(ventana, highlightthickness=0, background=TEAL)
 label_animation.place(x=20, y=100)
 #***********************************************
 
+############### Canvas para el menu de opciones ##############################
+menu = tk.Canvas(ventana, width=640, height=600, bg=BLACK, highlightthickness=0)
+menu.place(x=0, y=0)
+
+title = menu.create_text(320, 100, text="PREPOGAME", font=("Consolas", 30, "bold"), fill=GREY)
+rect_easy = menu.create_rectangle(50, 320, 270, 390, fill=GREY, outline=BLACK)
+rect_medium = menu.create_rectangle(370, 320, 590, 390, fill=TEAL, outline=BLACK)
+rect_hard = menu.create_rectangle(210, 420, 430, 490, fill=RED, outline=BLACK)
+
+text_easy = menu.create_text(160, 355, text="Facil", font=("Consolas", 30, "bold"), fill=BLACK)
+text_medium = menu.create_text(480, 355, text="Medio", font=("Consolas", 30, "bold"), fill=BLACK)
+text_hard = menu.create_text(325, 455, text="Dificil", font=("Consolas", 30, "bold"), fill=BLACK)
+
+menu.addtag_withtag("btn_easy", rect_easy)
+menu.addtag_withtag("btn_easy", text_easy)
+menu.addtag_withtag("btn_medium", rect_medium)
+menu.addtag_withtag("btn_medium", text_medium)
+menu.addtag_withtag("btn_hard", rect_hard)
+menu.addtag_withtag("btn_hard", text_hard)
+
+menu.tag_bind("btn_easy", "<Button-1>", lambda e: elegir_dificultad("easy"))
+menu.tag_bind("btn_medium", "<Button-1>", lambda e: elegir_dificultad("medium"))
+menu.tag_bind("btn_hard", "<Button-1>", lambda e: elegir_dificultad("hard"))
+#*****************************************************************************
+
+cantidad_de_preguntas = 0
+def elegir_dificultad(dificultad: str):
+    global menu
+    global cantidad_de_preguntas
+    if dificultad == "easy":
+        cantidad_de_preguntas = 10
+    elif dificultad == "medium":
+        cantidad_de_preguntas = 15
+    else:
+        cantidad_de_preguntas = 20
+    sleep(0.3)
+    menu.destroy()
+    game.cant_games = cantidad_de_preguntas
+
+animacion = None
 def actualizar_ani(lista: list, current_index = 0, speed = 50):
+    global animacion
     if current_index < len(lista):
         label_animation.config(image=lista[current_index])
         next_index = (current_index + 1)
     else:
         label_animation.config(image="")
+        animacion = None
         return
-    ventana.after(speed, actualizar_ani, lista, next_index, speed)
+    animacion = ventana.after(speed, actualizar_ani, lista, next_index, speed)
 
-def accion(option):
+def stop_animation():
+    global animacion
+    if animacion is not None:
+        ventana.after_cancel(animacion)
+        animacion = None
+
+def validacion(option):
+    global cantidad_de_preguntas
+    stop_animation()
     if game.answer_validation(option):
         actualizar_ani(lista=fotograms_correct, current_index=0, speed=25)
     else:
         actualizar_ani(lista=fotograms_mistake, current_index=0, speed=100)
-    if game.games == 10:
+    if game.cant_games == 0:
         print("fin del juego")
         options_space.tag_unbind("boton1", "<Button-1>")
         options_space.tag_unbind("boton2", "<Button-1>")
         options_space.tag_unbind("boton3", "<Button-1>")
         options_space.tag_unbind("boton4", "<Button-1>")
-        tabla.itemconfig(texto_tabla, text=f"Score: {game.wins}/{game.games}")
+        tabla.itemconfig(texto_tabla, text=f"\n\nScore: {game.wins}/{cantidad_de_preguntas}", font=("Arial", 30, "bold"))
         return
     ventana.after(500, iniciar)
 
@@ -99,20 +163,10 @@ def iniciar():
     options_space.itemconfig(text3, text=options_list[2])
     options_space.itemconfig(text4, text=options_list[3])
 
-    options_space.addtag_withtag("boton1", rect_one)
-    options_space.addtag_withtag("boton1", text1)
-    options_space.addtag_withtag("boton2", rect_two)
-    options_space.addtag_withtag("boton2", text2)
-    options_space.addtag_withtag("boton3", rect_three)
-    options_space.addtag_withtag("boton3", text3)
-    options_space.addtag_withtag("boton4", rect_four)
-    options_space.addtag_withtag("boton4", text4)
-    
-   
-    options_space.tag_bind("boton1", "<Button-1>", lambda e: accion(options_list[0]))
-    options_space.tag_bind("boton2", "<Button-1>", lambda e: accion(options_list[1]))
-    options_space.tag_bind("boton3", "<Button-1>", lambda e: accion(options_list[2]))
-    options_space.tag_bind("boton4", "<Button-1>", lambda e: accion(options_list[3]))
+    options_space.tag_bind("boton1", "<Button-1>", lambda e: validacion(options_list[0]))
+    options_space.tag_bind("boton2", "<Button-1>", lambda e: validacion(options_list[1]))
+    options_space.tag_bind("boton3", "<Button-1>", lambda e: validacion(options_list[2]))
+    options_space.tag_bind("boton4", "<Button-1>", lambda e: validacion(options_list[3]))
 
 iniciar()
 ventana.mainloop()

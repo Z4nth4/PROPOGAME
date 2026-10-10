@@ -5,7 +5,7 @@ logo = """ ____  ____   __  ____   __    ___   __   _  _  ____
 tablas_proposiciones = [
     {
         "nombre": "Conjunción\n(P ∧ Q)",
-        "tabla": """+---+---+---+
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | V |
@@ -16,7 +16,7 @@ tablas_proposiciones = [
     },
     {
         "nombre": "Disyunción\n(P ∨ Q)",
-        "tabla": """+---+---+---+
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | V |
@@ -27,7 +27,7 @@ tablas_proposiciones = [
     },
     {
         "nombre": "Condicional\n(P → Q)",
-        "tabla": """+---+---+---+
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | V |
@@ -38,7 +38,7 @@ tablas_proposiciones = [
     },
     {
         "nombre": "Bicondicional\n(P ↔ Q)",
-        "tabla": """+---+---+---+
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | V |
@@ -49,7 +49,7 @@ tablas_proposiciones = [
     },
     {
         "nombre": "Disyunción Exclusiva\n(P ⊕ Q)",
-        "tabla": """+---+---+---+
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | F |
@@ -60,7 +60,7 @@ tablas_proposiciones = [
     },
     {
         "nombre": "Negación Conjunta\n(¬(P ∨ Q))",
-        "tabla": """+---+---+---+
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | F |
@@ -70,8 +70,8 @@ tablas_proposiciones = [
 +---+---+---+"""
     },
     {
-        "nombre": "Negación Alternativa \n(¬(P ∧ Q))",
-        "tabla": """+---+---+---+
+        "nombre": "Negación Alternativa\n(¬(P ∧ Q))",
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | F |
@@ -82,7 +82,7 @@ tablas_proposiciones = [
     },
     {
         "nombre": "Condicional Inverso\n(Q → P)",
-        "tabla": """+---+---+---+
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | V |
@@ -93,7 +93,7 @@ tablas_proposiciones = [
     },
     {
         "nombre": "Negación de P\n(¬P)",
-        "tabla": """+---+---+---+
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | F |
@@ -104,7 +104,7 @@ tablas_proposiciones = [
     },
     {
         "nombre": "Negación de Q\n(¬Q)",
-        "tabla": """+---+---+---+
+        "tabla": """\n\n+---+---+---+
 | P | Q | ? |
 +---+---+---+
 | V | V | F |
@@ -112,5 +112,182 @@ tablas_proposiciones = [
 | F | V | F |
 | F | F | V |
 +---+---+---+"""
+    },
+    {
+        "nombre": "Afirmación de P\n(P)",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | V |
+| V | F | V |
+| F | V | F |
+| F | F | F |
++---+---+---+"""
+    },
+    {
+        "nombre": "Afirmación de Q\n(Q)",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | V |
+| V | F | F |
+| F | V | V |
+| F | F | F |
++---+---+---+"""
+    },
+    {
+        "nombre": "No-implicación Directa\n(P ∧ ¬Q)",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | F |
+| V | F | V |
+| F | V | F |
+| F | F | F |
++---+---+---+"""
+    },
+    {
+        "nombre": "No-implicación Inversa\n(¬P ∧ Q)",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | F |
+| V | F | F |
+| F | V | V |
+| F | F | F |
++---+---+---+"""
+    },
+    {
+        "nombre": "Tautología\n(V)",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | V |
+| V | F | V |
+| F | V | V |
+| F | F | V |
++---+---+---+"""
+    },
+    {
+        "nombre": "Contradicción\n(F)",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | F |
+| V | F | F |
+| F | V | F |
+| F | F | F |
++---+---+---+"""
+    },
+    {
+        "nombre": "Negación del Condicional\n(¬(P → Q))",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | F |
+| V | F | V |
+| F | V | F |
+| F | F | F |
++---+---+---+"""
+    },
+    {
+        "nombre": "Condicional con P Negada\n(¬P → Q)",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | V |
+| V | F | V |
+| F | V | V |
+| F | F | F |
++---+---+---+"""
+    },
+    {
+        "nombre": "Condicional con Q Negada\n(P → ¬Q)",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | F |
+| V | F | V |
+| F | V | V |
+| F | F | V |
++---+---+---+"""
+    },
+    {
+        "nombre": "Bicondicional Negado\n(¬(P ↔ Q))",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | F |
+| V | F | V |
+| F | V | V |
+| F | F | F |
++---+---+---+"""
+    },
+    {
+        "nombre": "Implicación Compuesta\n((P → Q) ∧ (Q → P))",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | V |
+| V | F | F |
+| F | V | F |
+| F | F | V |
++---+---+---+"""
+    },
+    {
+        "nombre": "Disyunción Negaciones\n(¬P ∨ ¬Q)",
+        "tabla": """\n\n+---+---+---+
+| P | Q | ? |
++---+---+---+
+| V | V | F |
+| V | F | V |
+| F | V | V |
+| F | F | V |
++---+---+---+"""
+    },
+    {
+        "nombre": "Implicación\n((P ∧ Q) → R)",
+        "tabla": """\n\n+---+---+---+---+
+| P | Q | R | ? |
++---+---+---+---+
+| V | V | V | V |
+| V | V | F | F |
+| V | F | V | V |
+| V | F | F | V |
+| F | V | V | V |
+| F | V | F | V |
+| F | F | V | V |
+| F | F | F | V |
++---+---+---+---+"""
+    },
+    {
+        "nombre": "Disyunción Exclusiva\n(P ⊕ Q ⊕ R)",
+        "tabla": """\n\n+---+---+---+---+
+| P | Q | R | ? |
++---+---+---+---+
+| V | V | V | V |
+| V | V | F | F |
+| V | F | V | F |
+| V | F | F | V |
+| F | V | V | F |
+| F | V | F | V |
+| F | F | V | V |
+| F | F | F | F |
++---+---+---+---+"""
+    },
+    {
+        "nombre": "Consenso\n((P∧Q)∨(Q∧R)∨(P∧R))",
+        "tabla": """\n\n+---+---+---+---+
+| P | Q | R | ? |
++---+---+---+---+
+| V | V | V | V |
+| V | V | F | V |
+| V | F | V | V |
+| V | F | F | F |
+| F | V | V | V |
+| F | V | F | F |
+| F | F | V | F |
+| F | F | F | F |
++---+---+---+---+"""
     }
 ]

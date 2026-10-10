@@ -3,10 +3,10 @@ from datos import tablas_proposiciones
 
 
 class Prepogame:
-    def __init__(self) -> None:
+    def __init__(self, cant_games = 10) -> None:
         self.OPTIONS_QUANTITY = 3
         self.wins = 0
-        self.games = 0
+        self.cant_games = cant_games
         self.mazo = tablas_proposiciones.copy()
         self.current_quest = {}
 
@@ -32,10 +32,10 @@ class Prepogame:
         if answer == self.current_quest["nombre"]:
             print("Respuesta correcta :)")
             self.wins += 1
-            self.games += 1
+            self.cant_games -= 1
             return True
         else:
             print("Respuesta incorrecta :(")
-            self.games += 1
+            self.cant_games -= 1
             return False
         
