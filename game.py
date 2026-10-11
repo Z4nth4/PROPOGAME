@@ -8,32 +8,38 @@ BLACK = "#252A34"
 RED = "#FF2E63"
 GREY = "#EAEAEA"
 
+backg = "#0F172A"
+pizarron = "#1E293B"
+borde = "#F43F5E"
+bgopc = "#334155"
+FONDO_OPCIONES = "#27273A"
+
 ventana = tk.Tk()
 ventana.title("Prepogame")
 ventana.geometry("640x600")
-ventana.config(bg=TEAL)
+ventana.config(bg=backg)
 
 game = Prepogame()
 ############### Canvas con la tabla en assci ##################################
-tabla = tk.Canvas(ventana, width=320, height=350, bg=BLACK, highlightthickness=0)
+tabla = tk.Canvas(ventana, width=320, height=350, bg=pizarron, highlightbackground=borde, highlightthickness=2)
 tabla.place(x=160, y=20)
 
-texto_tabla = tabla.create_text(160, 130, text="Iniciar", fill=GREY, anchor="center", font=("Arial", 20, "bold"))
+texto_tabla = tabla.create_text(160, 130, text="Iniciar", fill="#EDF2F7", anchor="center", font=("Courier New", 18, "bold"))
 #******************************************************************************
 
 ################ Canvas con las opciones de respuesta #######################
-options_space = tk.Canvas(ventana, width=500, height=180, bg=RED)
+options_space = tk.Canvas(ventana, width=500, height=180, bg=bgopc, highlightthickness=2, highlightbackground=borde)
 options_space.place(x=70, y=400)
 
-rect_one = options_space.create_rectangle(30, 20, 230, 80, fill=GREY, outline="black")
-rect_two = options_space.create_rectangle(270, 20, 470, 80, fill=GREY, outline="black")
-rect_three = options_space.create_rectangle(30, 100, 230, 160, fill=GREY, outline="black")
-rect_four = options_space.create_rectangle(270, 100, 470, 160, fill=GREY, outline="black")
+rect_one = options_space.create_rectangle(30, 20, 230, 80, fill=FONDO_OPCIONES, outline="#C7528D")
+rect_two = options_space.create_rectangle(270, 20, 470, 80, fill=FONDO_OPCIONES, outline="#C7528D")
+rect_three = options_space.create_rectangle(30, 100, 230, 160, fill=FONDO_OPCIONES, outline="#C7528D")
+rect_four = options_space.create_rectangle(270, 100, 470, 160, fill=FONDO_OPCIONES, outline="#C7528D")
 
-text1 = options_space.create_text(130, 50, text="", font=("Arial", 12, "bold"), fill=BLACK)
-text2 = options_space.create_text(370, 50, text="", font=("Arial", 12, "bold"), fill=BLACK)
-text3 = options_space.create_text(130, 130, text="", font=("Arial", 12, "bold"), fill=BLACK)
-text4 = options_space.create_text(370, 130, text="", font=("Arial", 12, "bold"), fill=BLACK)
+text1 = options_space.create_text(130, 50, text="", font=("Arial", 11, "bold"), fill="#F8FAFC")
+text2 = options_space.create_text(370, 50, text="", font=("Arial", 11, "bold"), fill="#F8FAFC")
+text3 = options_space.create_text(130, 130, text="", font=("Arial", 11, "bold"), fill="#F8FAFC")
+text4 = options_space.create_text(370, 130, text="", font=("Arial", 11, "bold"), fill="#F8FAFC")
 
 options_space.addtag_withtag("boton1", rect_one)
 options_space.addtag_withtag("boton1", text1)
@@ -50,10 +56,10 @@ options_space.addtag_withtag("boton4", text4)
 fotograms_correct = []
 fotograms_mistake = []
 
-ruta_good = "./animaciones/correct.gif"
+ruta_good = "./animaciones/correct2.gif"
 imagen_correct = Image.open(ruta_good)
 
-ruta_bad = "./animaciones/mistake.gif"
+ruta_bad = "./animaciones/mistake2.gif"
 imagen_mistake = Image.open(ruta_bad)
 
 try:
@@ -76,22 +82,24 @@ except EOFError:
 #**********************************************************************
 
 ######## Labels para gifts #####################
-label_animation = tk.Label(ventana, highlightthickness=0, background=TEAL)
-label_animation.place(x=20, y=100)
+label_animation = tk.Label(ventana, highlightthickness=0, background=backg)
+label_animation.place(x=20, y=250)
 #***********************************************
 
 ############### Canvas para el menu de opciones ##############################
 menu = tk.Canvas(ventana, width=640, height=600, bg=BLACK, highlightthickness=0)
 menu.place(x=0, y=0)
 
-title = menu.create_text(320, 100, text="PREPOGAME", font=("Consolas", 30, "bold"), fill=GREY)
-rect_easy = menu.create_rectangle(50, 320, 270, 390, fill=GREY, outline=BLACK)
-rect_medium = menu.create_rectangle(370, 320, 590, 390, fill=TEAL, outline=BLACK)
-rect_hard = menu.create_rectangle(210, 420, 430, 490, fill=RED, outline=BLACK)
+title = menu.create_text(320, 120, text="PREPOGAME", font=("Consolas", 50, "bold"), fill="#FFFFFF")
+subtitle = menu.create_text(320, 230, text="ELIGE LA CANTIDAD\nDE PREGUNTAS", font=("Consolas", 20, "bold"), fill="#94A3B8", justify="center")
 
-text_easy = menu.create_text(160, 355, text="Facil", font=("Consolas", 30, "bold"), fill=BLACK)
-text_medium = menu.create_text(480, 355, text="Medio", font=("Consolas", 30, "bold"), fill=BLACK)
-text_hard = menu.create_text(325, 455, text="Dificil", font=("Consolas", 30, "bold"), fill=BLACK)
+rect_easy = menu.create_rectangle(50, 320, 270, 390, fill="#1E2433", outline="#22C55E")
+rect_medium = menu.create_rectangle(370, 320, 590, 390, fill="#1E2433", outline="#F59E0B")
+rect_hard = menu.create_rectangle(210, 420, 430, 490, fill="#1E2433", outline="#F43F5E")
+
+text_easy = menu.create_text(160, 355, text="Facil", font=("Consolas", 30, "bold"), fill="#F8FAFC")
+text_medium = menu.create_text(480, 355, text="Medio", font=("Consolas", 30, "bold"), fill="#F8FAFC")
+text_hard = menu.create_text(325, 455, text="Dificil", font=("Consolas", 30, "bold"), fill="#F8FAFC")
 
 menu.addtag_withtag("btn_easy", rect_easy)
 menu.addtag_withtag("btn_easy", text_easy)
@@ -141,9 +149,9 @@ def validacion(option):
     global cantidad_de_preguntas
     stop_animation()
     if game.answer_validation(option):
-        actualizar_ani(lista=fotograms_correct, current_index=0, speed=25)
+        actualizar_ani(lista=fotograms_correct, current_index=0, speed=35)
     else:
-        actualizar_ani(lista=fotograms_mistake, current_index=0, speed=100)
+        actualizar_ani(lista=fotograms_mistake, current_index=0, speed=85)
     if game.cant_games == 0:
         print("fin del juego")
         options_space.tag_unbind("boton1", "<Button-1>")
