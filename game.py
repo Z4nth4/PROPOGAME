@@ -15,7 +15,7 @@ bgopc = "#334155"
 FONDO_OPCIONES = "#27273A"
 
 ventana = tk.Tk()
-ventana.title("Prepogame")
+ventana.title("Propogame")
 ventana.geometry("640x600")
 ventana.config(bg=backg)
 
@@ -86,11 +86,15 @@ label_animation = tk.Label(ventana, highlightthickness=0, background=backg)
 label_animation.place(x=20, y=250)
 #***********************************************
 
+####### Label para high score ##################
+hgscore_label = tk.Label(ventana, text=f"High Score:\n{game.high_score}", justify="center", background=backg, fg="#EDF2F7", font=("Courier New", 16, "bold"))
+hgscore_label.place(x=490, y=40)
+#***********************************************
 ############### Canvas para el menu de opciones ##############################
 menu = tk.Canvas(ventana, width=640, height=600, bg=BLACK, highlightthickness=0)
 menu.place(x=0, y=0)
 
-title = menu.create_text(320, 120, text="PREPOGAME", font=("Consolas", 50, "bold"), fill="#FFFFFF")
+title = menu.create_text(320, 120, text="PROPOGAME", font=("Consolas", 50, "bold"), fill="#FFFFFF")
 subtitle = menu.create_text(320, 230, text="ELIGE LA CANTIDAD\nDE PREGUNTAS", font=("Consolas", 20, "bold"), fill="#94A3B8", justify="center")
 
 rect_easy = menu.create_rectangle(50, 320, 270, 390, fill="#1E2433", outline="#22C55E")
@@ -112,11 +116,27 @@ menu.tag_bind("btn_easy", "<Button-1>", lambda e: elegir_dificultad("easy"))
 menu.tag_bind("btn_medium", "<Button-1>", lambda e: elegir_dificultad("medium"))
 menu.tag_bind("btn_hard", "<Button-1>", lambda e: elegir_dificultad("hard"))
 #*****************************************************************************
+################# Menu de reinicio de juego ##################################
+reinicio = tk.Canvas(ventana, width=500, height=180, bg=bgopc, highlightthickness=2, highlightbackground=borde)
+
+rect_reinicio = reinicio.create_rectangle(125, 45, 375, 135, fill=FONDO_OPCIONES, outline="#C7528D")
+text_reinicio = reinicio.create_text(250, 90, text="Menu Principal", font=("Arial", 15, "bold"), fill="#F8FAFC")
+
+reinicio.addtag_withtag("btn_reinicio", rect_reinicio)
+reinicio.addtag_withtag("btn_reinicio", text_reinicio)
+
+reinicio.tag_bind("btn_reinicio", "<Button-1>", lambda e: reset_game())
+#*****************************************************************************
 
 cantidad_de_preguntas = 0
 def elegir_dificultad(dificultad: str):
-    global menu
     global cantidad_de_preguntas
+
+    game.init_score(dificultad)
+    hgscore_label.config(text=f"High Score:\n{game.high_score}")
+    print(game.dificultad)
+    print(game.high_score)
+
     if dificultad == "easy":
         cantidad_de_preguntas = 10
     elif dificultad == "medium":
@@ -124,7 +144,7 @@ def elegir_dificultad(dificultad: str):
     else:
         cantidad_de_preguntas = 20
     sleep(0.3)
-    menu.destroy()
+    menu.place_forget()
     game.cant_games = cantidad_de_preguntas
 
 animacion = None
@@ -146,7 +166,6 @@ def stop_animation():
         animacion = None
 
 def validacion(option):
-    global cantidad_de_preguntas
     stop_animation()
     if game.answer_validation(option):
         actualizar_ani(lista=fotograms_correct, current_index=0, speed=35)
@@ -159,13 +178,20 @@ def validacion(option):
         options_space.tag_unbind("boton3", "<Button-1>")
         options_space.tag_unbind("boton4", "<Button-1>")
         tabla.itemconfig(texto_tabla, text=f"\n\nScore: {game.wins}/{cantidad_de_preguntas}", font=("Arial", 30, "bold"))
+        game.save_score()
+        reinicio.place(x=70, y=400)
         return
-    ventana.after(500, iniciar)
+    ventana.after(100, iniciar)
 
+def reset_game():
+    game.__init__()
+    menu.place(x=0, y=0)
+    reinicio.place_forget()
+    iniciar()
 
 def iniciar():
     options_list = game.option_creation()
-    tabla.itemconfig(texto_tabla, text=game.current_quest["tabla"])
+    tabla.itemconfig(texto_tabla, text=game.current_quest["tabla"], anchor="center", font=("Courier New", 18, "bold"))
     options_space.itemconfig(text1, text=options_list[0])
     options_space.itemconfig(text2, text=options_list[1])
     options_space.itemconfig(text3, text=options_list[2])
@@ -175,6 +201,5 @@ def iniciar():
     options_space.tag_bind("boton2", "<Button-1>", lambda e: validacion(options_list[1]))
     options_space.tag_bind("boton3", "<Button-1>", lambda e: validacion(options_list[2]))
     options_space.tag_bind("boton4", "<Button-1>", lambda e: validacion(options_list[3]))
-
 iniciar()
 ventana.mainloop()

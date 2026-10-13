@@ -2,3 +2,6 @@
 __pycache__/
 *.pyc
 .env
+easy.txt
+medium.txt
+hard.txt
